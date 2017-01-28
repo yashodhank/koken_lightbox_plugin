@@ -8,8 +8,9 @@ Features Include:
 
 ## Resources
 This is a default database that we are going to use in this development.
-[Default Database](http://unumstudios.com/lightbox/storage/amp_lightbox_2017-01-27.sql.gz)
-[Default Images](http://unumstudios.com/lightbox/storage/images.zip)
+
+* [Default Database](http://unumstudios.com/lightbox/storage/amp_lightbox_2017-01-27.sql.gz)
+* [Default Images](http://unumstudios.com/lightbox/storage/images.zip)
 
 ## Project Setup
 1. Create a Project Folder
