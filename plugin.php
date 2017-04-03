@@ -54,7 +54,7 @@
 
     function getImages ($photos) {
       $db = new Database();
-      $imgs = "";
+      $imgs = [];
 
       foreach ($photos as &$photo) {
         $photoId = $photo['id'];
@@ -70,7 +70,7 @@
           $idZeroPadded = sprintf('%03d', $photo['id']);
           $photoSrc = '/storage/cache/images/000/'.$idZeroPadded.'/'.$photoFilename.',medium.2x.'.$kokenPhoto['modified_on'].$photoExtention[0];
 
-          $imgs .= "<img src=$photoSrc respond_to=height data-lazy-hold=true />";
+          $imgs[] = "<img src=$photoSrc respond_to=height data-lazy-hold=true />";
         }
       }
 
@@ -81,20 +81,25 @@
       $imgs = $this->route();
 
       $html = <<<EOT
-
 <div id="lane" class="c-album-view">
-    <div class="cell image" data-aspect="4:3">
-        $imgs
-        <button class="imagebox-album-button js-lightbox-button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-              <polygon fill="#000000" fill-rule="evenodd" points="24.052 16 24.052 24.052 16 24.052 16 25.948 24.052 25.948 24.052 34 25.948 34 25.948 25.948 34 25.948 34 24.052 25.948 24.052 25.948 16" transform="translate(-16 -16)"/>
-            </svg>
-        </button>
-    </div>
-    <!-- <koken:keyboard_scroll element="div.cell" offset="10" /> -->
-</div>
-
 EOT;
+
+      for ($i = 0; $i < sizeof($imgs); $i++) {
+
+        $html .= <<<EOT
+<div class="cell image" data-aspect="4:3">
+    $imgs[$i]
+    <button class="imagebox-album-button js-lightbox-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+          <polygon fill="#000000" fill-rule="evenodd" points="24.052 16 24.052 24.052 16 24.052 16 25.948 24.052 25.948 24.052 34 25.948 34 25.948 25.948 34 25.948 34 24.052 25.948 24.052 25.948 16" transform="translate(-16 -16)"/>
+        </svg>
+    </button>
+</div>
+EOT;
+      }
+
+      $html .= "</div>";
+
       return str_replace("<!-- Insert images here. Lightbox plugin does this. Do not remove this string -->", $html, $str);
     }
 
