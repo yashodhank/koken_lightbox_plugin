@@ -67,8 +67,12 @@
           preg_match('/(\..+)$/', $photoFilename, $photoExtention);
           $photoFilename = str_replace($photoExtention[0], '', $photoFilename);
 
-          $idZeroPadded = sprintf('%03d', $photo['id']);
-          $photoSrc = '/storage/cache/images/000/'.$idZeroPadded.'/'.$photoFilename.',medium.2x.'.$kokenPhoto['modified_on'].$photoExtention[0];
+          $photoId = sprintf('%06d', $photo['id']);
+          // get last 3 digits and pad them with zeros if need so that there is always 3 digits
+          // then get next 3 digits and pad them with zeros if need so that there is always 3 digits
+          $photoIdLatter = substr($photoId, -3);
+          $photoIdFormer = substr($photoId, 0, 3);
+          $photoSrc = "/storage/cache/images/$photoIdFormer/".$photoIdLatter.'/'.$photoFilename.',medium.2x.'.$kokenPhoto['modified_on'].$photoExtention[0];
 
           $imgs[] = "<img src=$photoSrc respond_to=height data-lazy-hold=true />";
         }
